@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrated Math III - Unit 4: Statistics Fundamentals</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>Integrated Math III - Unit 4: Statistics Fundamentals</h1>
+        <nav>
+            <button onclick="showModule('module1')">Module 1: Visualizing Data</button>
+            <button onclick="showModule('module2')">Module 2: Measuring Spread</button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="module1" class="module">
+            <h2>Module 1: Visualizing Data & Measures of Center</h2>
+
+            <article>
+                <h3>Introduction: Why Visualize Data?</h3>
+                <p>Raw data, like a list of test scores or measurements, can be hard to interpret. Visualizations help us see patterns, trends, and the overall 'shape' of the data. Measures of center tell us about the 'typical' value in a dataset.</p>
+            </article>
+
+            <article>
+                <h3>Histograms</h3>
+                <p>A histogram is a graphical representation of the distribution of numerical data. It's similar to a bar chart, but for continuous data grouped into ranges (called 'bins' or 'intervals'). The height of each bar shows the frequency (how many data points fall into that bin).</p>
+                <p><strong>Key features of a histogram:</strong></p>
+                <ul>
+                    <li>Bars represent frequency or relative frequency.</li>
+                    <li>Bars are typically adjacent (no gaps, unless a bin has zero frequency).</li>
+                    <li>The horizontal axis represents the continuous variable, divided into bins.</li>
+                    <li>The vertical axis represents the frequency or relative frequency.</li>
+                </ul>
+
+                <h4>Interactive Histogram Generator</h4>
+                <p>Enter a list of numbers separated by commas (e.g., 5, 12, 8, 5, 10, 15, 8, 10, 12, 10). Choose the number of bins.</p>
+                <label for="histData">Data:</label>
+                <input type="text" id="histData" placeholder="e.g., 75, 82, 91, 68, 82">
+                <br>
+                <label for="numBins">Number of Bins:</label>
+                <input type="number" id="numBins" value="5" min="1">
+                <br>
+                <button onclick="generateHistogram()">Generate Histogram</button>
+                <div id="histogramDisplay">
+                    </div>
+                 <p id="histogramError" class="error"></p>
+            </article>
+
+            <article>
+                <h3>Measures of Center: Mean and Median</h3>
+                <p>Measures of center give us a single value that represents the 'middle' or 'typical' value of a dataset.</p>
+                <ul>
+                    <li><strong>Mean ($\bar{x}$):</strong> The average value. Calculated by summing all values and dividing by the number of values. Formula: $\bar{x} = \frac{\sum_{i=1}^{n} x_i}{n}$. The mean is sensitive to outliers (extreme values).</li>
+                    <li><strong>Median:</strong> The middle value when the data is sorted. If there's an even number of data points, the median is the average of the two middle values. The median is resistant (or robust) to outliers.</li>
+                </ul>
+
+                <h4>Interactive Mean & Median Calculator</h4>
+                <p>Enter a list of numbers separated by commas:</p>
+                <label for="centerData">Data:</label>
+                <input type="text" id="centerData" placeholder="e.g., 10, 20, 15, 25, 10">
+                <br>
+                <button onclick="calculateCenter()">Calculate Mean & Median</button>
+                <p id="centerResult"></p>
+                <p id="centerError" class="error"></p>
+            </article>
+
+            <article>
+                <h3>Choosing Mean vs. Median</h3>
+                <p>Which measure of center is better? It depends on the data's distribution:</p>
+                <ul>
+                    <li>For roughly symmetrical distributions, the mean and median will be close, and the mean is often preferred.</li>
+                    <li>For skewed distributions (data stretched out to one side) or data with significant outliers, the median is often a better representation of the 'typical' value.</li>
+                </ul>
+            </article>
+
+             <article>
+                <h3>Module 1 Quiz</h3>
+                <div id="quiz1">
+                    <p><strong>Question 1:</strong> A histogram is best used for displaying:</p>
+                    <label><input type="radio" name="q1" value="a"> Categorical data</label><br>
+                    <label><input type="radio" name="q1" value="b"> The distribution of numerical data</label><br>
+                    <label><input type="radio" name="q1" value="c"> Comparing two specific values</label><br>
+
+                    <p><strong>Question 2:</strong> Which measure of center is most affected by an extremely high score in a dataset?</p>
+                    <label><input type="radio" name="q2" value="a"> Mean</label><br>
+                    <label><input type="radio" name="q2" value="b"> Median</label><br>
+                    <label><input type="radio" name="q2" value="c"> Mode</label><br>
+
+                    <button onclick="checkQuiz('quiz1', ['b', 'a'])">Check Answers</button>
+                    <p id="quiz1Result"></p>
+                </div>
+            </article>
+        </section>
+
+        <section id="module2" class="module" style="display: none;">
+            <h2>Module 2: Measuring Spread - Standard Deviation</h2>
+
+            <article>
+                <h3>Introduction: Why Measure Spread?</h3>
+                <p>Knowing the center of the data (mean or median) is useful, but it doesn't tell the whole story. Consider two classes with the same average test score (mean = 80). One class might have scores clustered tightly around 80 (e.g., 78, 80, 81, 81), while the other has scores spread out widely (e.g., 60, 70, 90, 100). Measures of spread tell us how variable or dispersed the data points are.</p>
+            </article>
+
+            <article>
+                <h3>Range and Interquartile Range (IQR)</h3>
+                <p>These are simpler measures of spread:</p>
+                <ul>
+                    <li><strong>Range:</strong> The difference between the maximum and minimum values (Max - Min). Very sensitive to outliers.</li>
+                    <li><strong>Interquartile Range (IQR):</strong> The range of the middle 50% of the data. Calculated as Q3 - Q1, where Q3 is the 75th percentile (median of the upper half) and Q1 is the 25th percentile (median of the lower half). The IQR is resistant to outliers.</li>
+                </ul>
+            </article>
+
+            <article>
+                <h3>Variance and Standard Deviation</h3>
+                <p>The most common and important measures of spread are variance and standard deviation. They measure the typical distance of data points from the mean.</p>
+                <ul>
+                    <li><strong>Deviation:</strong> The difference between a data point ($x_i$) and the mean ($\bar{x}$): $(x_i - \bar{x})$.</li>
+                    <li><strong>Variance ($s^2$ for a sample, $\sigma^2$ for a population):</strong> Roughly the average of the *squared* deviations. Squaring ensures deviations don't cancel out and emphasizes larger deviations.
+                        <br>Sample Variance Formula: $s^2 = \frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{n-1}$
+                        <br>(Note: We divide by $n-1$ for a sample to get an unbiased estimate of the population variance. If you have data for the *entire* population, you'd divide by $N$.)
+                    </li>
+                    <li><strong>Standard Deviation ($s$ for a sample, $\sigma$ for a population):</strong> The square root of the variance. It brings the measure of spread back into the original units of the data. It represents a 'typical' or 'standard' distance from the mean.
+                        <br>Sample Standard Deviation Formula: $s = \sqrt{s^2} = \sqrt{\frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{n-1}}$
+                    </li>
+                </ul>
+                <p>A larger standard deviation means the data points are, on average, farther from the mean (more spread out). A smaller standard deviation means they are clustered more closely around the mean.</p>
+
+                <h4>Interactive Standard Deviation Calculator</h4>
+                <p>Enter a list of numbers separated by commas. This calculator computes the *sample* standard deviation (dividing by n-1).</p>
+                 <label for="sdData">Data:</label>
+                <input type="text" id="sdData" placeholder="e.g., 2, 4, 6, 8, 10">
+                <br>
+                <button onclick="calculateSD()">Calculate Variance & Standard Deviation</button>
+                <p id="sdResult"></p>
+                <p id="sdError" class="error"></p>
+
+                <h5>Step-by-Step Breakdown (Example):</h5>
+                <ol>
+                    <li>Calculate the mean ($\bar{x}$).</li>
+                    <li>Calculate each deviation ($x_i - \bar{x}$).</li>
+                    <li>Square each deviation ($(x_i - \bar{x})^2$).</li>
+                    <li>Sum the squared deviations ($\sum (x_i - \bar{x})^2$).</li>
+                    <li>Divide by $n-1$ to get the variance ($s^2$).</li>
+                    <li>Take the square root to get the standard deviation ($s$).</li>
+                </ol>
+            </article>
+
+             <article>
+                <h3>Interpreting Standard Deviation</h3>
+                <p>Standard deviation helps us understand the distribution. For many datasets (especially those that are bell-shaped, like the Normal Distribution):</p>
+                <ul>
+                    <li>About 68% of the data falls within 1 standard deviation of the mean ($\bar{x} \pm s$).</li>
+                    <li>About 95% of the data falls within 2 standard deviations of the mean ($\bar{x} \pm 2s$).</li>
+                    <li>About 99.7% of the data falls within 3 standard deviations of the mean ($\bar{x} \pm 3s$).</li>
+                </ul>
+                <p>(This is known as the Empirical Rule, which applies best to approximately normal distributions.)</p>
+            </article>
+
+             <article>
+                <h3>Module 2 Quiz</h3>
+                <div id="quiz2">
+                    <p><strong>Question 1:</strong> A dataset has a standard deviation of 0. This means:</p>
+                    <label><input type="radio" name="q3" value="a"> All data points are equal to the mean.</label><br>
+                    <label><input type="radio" name="q3" value="b"> The data is perfectly symmetrical.</label><br>
+                    <label><input type="radio" name="q3" value="c"> The mean is 0.</label><br>
+
+                    <p><strong>Question 2:</strong> Compared to the range, the standard deviation:</p>
+                    <label><input type="radio" name="q4" value="a"> Is always larger.</label><br>
+                    <label><input type="radio" name="q4" value="b"> Is less sensitive to extreme outliers.</label><br>
+                    <label><input type="radio" name="q4" value="c"> Only works for positive data.</label><br>
+
+                    <button onclick="checkQuiz('quiz2', ['a', 'b'])">Check Answers</button>
+                    <p id="quiz2Result"></p>
+                </div>
+            </article>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>Interactive Math Course | Statistics Fundamentals</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
