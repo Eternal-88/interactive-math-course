@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IM3 Final Prep - Statistics & Data Analysis</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>Integrated Math III - Final Exam Prep</h1>
+        <p style="opacity: 0.9;">Key Concepts from Statistics & Data Analysis (Based on 2015 CC Standards)</p>
+        <nav>
+            <button onclick="showModule('module1')">Module 1: Visualizing Data</button>
+            <button onclick="showModule('module2')">Module 2: Measuring Spread</button>
+            <button onclick="showModule('module3')">Module 3: Normal Distribution</button>
+            <button onclick="showModule('module4')">Module 4: Collecting Data</button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="module1" class="module">
+            <h2>Module 1: Visualizing Data & Measures of Center</h2>
+            <article>
+                <h3>Introduction: Why Visualize Data?</h3>
+                <p>Raw data, like a list of test scores or measurements, can be hard to interpret. Visualizations help us see patterns, trends, and the overall 'shape' of the data. Measures of center tell us about the 'typical' value in a dataset.</p>
+            </article>
+
+            <article>
+                <h3>Histograms: Seeing the Shape of Data</h3>
+                <p>A histogram is a powerful graph showing how often different ranges of numerical data occur. Think of it like a bar chart for numbers grouped into bins.</p>
+                <ul>
+                    <li>It helps us understand the <strong>distribution</strong> of the data: Is it symmetric? Skewed? Spread out? Clustered?</li>
+                    <li>Bars represent frequency (count) within each bin.</li>
+                    <li>Bars usually touch (unless a bin is empty).</li>
+                </ul>
+
+                <h4>Interactive Histogram Generator</h4>
+                <p>Enter comma-separated numbers. Choose the number of bins to group the data.</p>
+                <label for="histData">Data:</label>
+                <input type="text" id="histData" placeholder="e.g., 75, 82, 91, 68, 82, 77, 85">
+                <br>
+                <label for="numBins">Number of Bins:</label>
+                <input type="number" id="numBins" value="5" min="1">
+                <br>
+                <button onclick="generateHistogram()">Generate Histogram</button>
+                <div id="histogramDisplay">
+                    </div>
+                 <p id="histogramError" class="error"></p>
+            </article>
+
+            <article>
+                <h3>Measures of Center: Mean and Median</h3>
+                <p>These numbers summarize the 'center' of your data.</p>
+                <ul>
+                    <li><strong>Mean ($\bar{x}$):</strong> The average. Add all values, divide by the count ($n$). It's sensitive to outliers (extreme values).</li>
+                    <li><strong>Median:</strong> The middle value when data is sorted. If $n$ is even, it's the average of the two middle values. It's resistant (robust) to outliers.</li>
+                </ul>
+
+                <h4>Interactive Mean & Median Calculator</h4>
+                <p>Enter comma-separated numbers:</p>
+                <label for="centerData">Data:</label>
+                <input type="text" id="centerData" placeholder="e.g., 10, 20, 15, 25, 10, 100">
+                <br>
+                <button onclick="calculateCenter()">Calculate Mean & Median</button>
+                <div id="centerResult" class="result-box"></div> <p id="centerError" class="error"></p>
+
+                <h4>Choosing Mean vs. Median</h4>
+                <p>Consider the shape of your data (from a histogram!):</p>
+                <ul>
+                    <li>If the data is roughly <strong>symmetric</strong>, the mean and median will be close. The mean is often used.</li>
+                    <li>If the data is <strong>skewed</strong> (pulled out to one side) or has <strong>outliers</strong>, the median often gives a better sense of the 'typical' value because it's less affected by extremes.</li>
+                </ul>
+            </article>
+
+             <article>
+                <h3>Module 1 Quiz</h3>
+                <div id="quiz1" class="quiz-section"> <p><strong>Question 1:</strong> A histogram is best used for displaying:</p>
+                    <label><input type="radio" name="q1" value="a"> Names of favorite colors</label><br>
+                    <label><input type="radio" name="q1" value="b"> The distribution of student heights (numerical data)</label><br>
+                    <label><input type="radio" name="q1" value="c"> The exact score of one student</label><br>
+
+                    <p><strong>Question 2:</strong> A billionaire moves into a small town. Which measure of income for the townspeople will likely increase the most?</p>
+                    <label><input type="radio" name="q2" value="a"> Mean</label><br>
+                    <label><input type="radio" name="q2" value="b"> Median</label><br>
+                    <label><input type="radio" name="q2" value="c"> Mode</label><br>
+
+                    <button onclick="checkQuiz('quiz1', ['b', 'a'])">Check Answers</button>
+                    <div id="quiz1Result" class="quiz-feedback"></div> </div>
+            </article>
+        </section>
+
+        <section id="module2" class="module" style="display: none;">
+            <h2>Module 2: Measuring Spread - Variance and Standard Deviation</h2>
+
+             <article>
+                <h3>Why Center Isn't Enough: Measuring Spread</h3>
+                <p>Knowing the average isn't the whole story. Two datasets can have the same mean but look very different! We also need to measure how spread out the data is. Are the values tightly clustered or widely dispersed?</p>
+                <p>Common measures of spread include Range, Interquartile Range (IQR), Variance, and Standard Deviation.</p>
+             </article>
+
+             <article>
+                 <h3>Variance ($s^2$) - The Average Squared Distance from the Mean</h3>
+                 <p>Variance gives us an idea of the data's spread by looking at how far each data point is from the mean. Because some distances are positive and some negative (and would cancel out), we square them first.</p>
+
+                 <div class="formula-explanation">
+                     <p><strong>Concept:</strong> Variance ($s^2$) is roughly the average of the squared differences between each data point ($x_i$) and the mean ($\bar{x}$).</p>
+                     <p><strong>Breaking down the symbols (Sample Variance Formula):</strong></p>
+                     <ul>
+                         <li>$\sum$: Sigma symbol, means "sum up".</li>
+                         <li>$x_i$: Represents each individual data point.</li>
+                         <li>$\bar{x}$: The mean (average) of the data.</li>
+                         <li>$(x_i - \bar{x})$: The deviation (distance) of a data point from the mean.</li>
+                         <li>$(x_i - \bar{x})^2$: The squared deviation. Squaring makes all values positive and emphasizes larger deviations.</li>
+                         <li>$n$: The number of data points in the sample.</li>
+                         <li>$n-1$: We divide by $n-1$ for a *sample* to get a better estimate of the *population* variance (this is called Bessel's correction - a detail for advanced stats, just know to use $n-1$ for samples!).</li>
+                     </ul>
+                     <p><strong>The Formula:</strong></p>
+                     <p>$$s^2 = \frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{n-1}$$</p>
+                 </div>
+
+                 <h4>Worked Example: Calculating Variance</h4>
+                 <p>Let's find the sample variance for the data: <strong>2, 4, 6, 8</strong></p>
+                 <ol>
+                    <li><strong>Find the mean ($\bar{x}$):</strong> $(2 + 4 + 6 + 8) / 4 = 20 / 4 = 5$</li>
+                    <li><strong>Calculate deviations ($x_i - \bar{x}$):</strong>
+                        <ul>
+                            <li>$2 - 5 = -3$</li>
+                            <li>$4 - 5 = -1$</li>
+                            <li>$6 - 5 = 1$</li>
+                            <li>$8 - 5 = 3$</li>
+                        </ul>
+                    </li>
+                    <li><strong>Square the deviations ($(x_i - \bar{x})^2$):</strong>
+                        <ul>
+                            <li>$(-3)^2 = 9$</li>
+                            <li>$(-1)^2 = 1$</li>
+                            <li>$(1)^2 = 1$</li>
+                            <li>$(3)^2 = 9$</li>
+                        </ul>
+                    </li>
+                    <li><strong>Sum the squared deviations ($\sum (x_i - \bar{x})^2$):</strong> $9 + 1 + 1 + 9 = 20$</li>
+                    <li><strong>Divide by $n-1$:</strong> Here $n=4$, so $n-1=3$. Variance $s^2 = 20 / 3 \approx 6.67$</li>
+                 </ol>
+             </article>
+
+             <article>
+                 <h3>Standard Deviation ($s$) - Typical Distance from the Mean</h3>
+                 <p>Variance is in *squared* units (like meters squared), which isn't intuitive. The **standard deviation** is simply the **square root of the variance**. This brings the measure of spread back into the original units of the data (like meters).</p>
+
+                 <div class="formula-explanation">
+                      <p><strong>Concept:</strong> Standard Deviation ($s$) represents a typical or 'standard' distance that data points fall away from the mean.</p>
+                      <p><strong>The Formula (Sample Standard Deviation):</strong></p>
+                      <p>$$s = \sqrt{s^2} = \sqrt{\frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{n-1}}$$</p>
+                      <p>A <strong>larger</strong> $s$ means data is more spread out. A <strong>smaller</strong> $s$ means data is more clustered around the mean.</p>
+                 </div>
+
+                 <h4>Worked Example: Calculating Standard Deviation</h4>
+                 <p>Using the previous example data (2, 4, 6, 8) where we found the variance $s^2 = 20/3$:</p>
+                 <ol start="6"> <li><strong>Take the square root of the variance:</strong> $s = \sqrt{20/3} \approx \sqrt{6.67} \approx 2.58$</li>
+                 </ol>
+                 <p>So, for the data 2, 4, 6, 8, a typical data point is about 2.58 units away from the mean of 5.</p>
+
+                 <h4>Interactive Standard Deviation Calculator</h4>
+                 <p>Enter comma-separated numbers to calculate sample variance and standard deviation.</p>
+                 <label for="sdData">Data:</label>
+                 <input type="text" id="sdData" placeholder="e.g., 2, 4, 6, 8">
+                 <br>
+                 <button onclick="calculateSD()">Calculate Variance & StDev</button>
+                 <div id="sdResult" class="result-box"></div> <p id="sdError" class="error"></p>
+             </article>
+
+             <article>
+                <h3>Module 2 Quiz</h3>
+                <div id="quiz2" class="quiz-section"> <p><strong>Question 1:</strong> Why do we square the deviations $(x_i - \bar{x})$ when calculating variance?</p>
+                    <label><input type="radio" name="q3" value="a"> To make the numbers bigger.</label><br>
+                    <label><input type="radio" name="q3" value="b"> To prevent positive and negative deviations from cancelling each other out & emphasize larger deviations.</label><br>
+                    <label><input type="radio" name="q3" value="c"> Because the mean is always positive.</label><br>
+
+                    <p><strong>Question 2:</strong> Dataset A: {10, 20, 30}. Dataset B: {18, 20, 22}. Which dataset has a larger standard deviation?</p>
+                    <label><input type="radio" name="q4" value="a"> Dataset A</label><br>
+                    <label><input type="radio" name="q4" value="b"> Dataset B</label><br>
+                    <label><input type="radio" name="q4" value="c"> They have the same standard deviation (same mean).</label><br>
+
+                    <button onclick="checkQuiz('quiz2', ['b', 'a'])">Check Answers</button>
+                    <div id="quiz2Result" class="quiz-feedback"></div> </div>
+            </article>
+        </section>
+
+        <section id="module3" class="module" style="display: none;">
+            <h2>Module 3: The Normal Distribution and Z-Scores</h2>
+
+            <article>
+                <h3>The Bell Curve: Normal Distributions</h3>
+                <p>Many natural phenomena, like heights, weights, or measurement errors, tend to follow a specific pattern called the **Normal Distribution**. When graphed as a histogram or curve, it looks like a symmetric bell shape.</p>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Normal_Distribution_PDF.svg/488px-Normal_Distribution_PDF.svg.png" alt="Bell curve showing normal distribution" style="display: block; margin: 15px auto; max-width: 80%; height: auto;">
+                <p style="text-align:center; font-size: 0.8em; color: #666;">Image Credit: Wikipedia</p>
+                <p><strong>Key Characteristics:</strong></p>
+                <ul>
+                    <li>Perfectly symmetric around the mean.</li>
+                    <li>The mean, median, and mode are all equal and located at the center.</li>
+                    <li>The shape is determined by the mean ($\mu$ for population, $\bar{x}$ for sample) and the standard deviation ($\sigma$ for population, $s$ for sample). The mean sets the center, and the standard deviation sets the spread (width).</li>
+                </ul>
+            </article>
+
+            <article>
+                <h3>The Empirical Rule (68-95-99.7 Rule)</h3>
+                <p>For data that is approximately normally distributed, the standard deviation tells us a lot about how data clusters around the mean:</p>
+                 <div class="formula-explanation">
+                    <ul>
+                        <li>Approximately <strong>68%</strong> of the data falls within <strong>1</strong> standard deviation of the mean (i.e., between $\bar{x} - s$ and $\bar{x} + s$).</li>
+                        <li>Approximately <strong>95%</strong> of the data falls within <strong>2</strong> standard deviations of the mean (i.e., between $\bar{x} - 2s$ and $\bar{x} + 2s$).</li>
+                        <li>Approximately <strong>99.7%</strong> of the data falls within <strong>3</strong> standard deviations of the mean (i.e., between $\bar{x} - 3s$ and $\bar{x} + 3s$).</li>
+                    </ul>
+                 </div>
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/The_Normal_Distribution.svg/600px-The_Normal_Distribution.svg.png" alt="Normal distribution curve showing 68-95-99.7 rule" style="display: block; margin: 15px auto; max-width: 100%; height: auto;">
+                 <p style="text-align:center; font-size: 0.8em; color: #666;">Image Credit: Wikipedia</p>
+                 <p><strong>Example:</strong> If IQ scores are normally distributed with a mean of 100 and a standard deviation of 15:</p>
+                 <ul>
+                     <li>About 68% of people have IQs between $100 - 15 = 85$ and $100 + 15 = 115$.</li>
+                     <li>About 95% of people have IQs between $100 - 2(15) = 70$ and $100 + 2(15) = 130$.</li>
+                     <li>About 99.7% of people have IQs between $100 - 3(15) = 55$ and $100 + 3(15) = 145$.</li>
+                 </ul>
+            </article>
+
+            <article>
+                 <h3>Z-Scores: Standardizing Data</h3>
+                 <p>A **Z-score** measures how many standard deviations a particular data point ($x$) is away from the mean ($\bar{x}$). It "standardizes" values, allowing us to compare data from different distributions.</p>
+                 <div class="formula-explanation">
+                     <p><strong>Concept:</strong> A Z-score tells you if a value is above or below average, and by how much in terms of standard deviations.</p>
+                     <ul>
+                         <li>A Z-score of <strong>0</strong> means the data point *is* the mean.</li>
+                         <li>A <strong>positive</strong> Z-score means the data point is *above* the mean.</li>
+                         <li>A <strong>negative</strong> Z-score means the data point is *below* the mean.</li>
+                         <li>A Z-score of <strong>1.5</strong> means the data point is 1.5 standard deviations *above* the mean.</li>
+                         <li>A Z-score of <strong>-2</strong> means the data point is 2 standard deviations *below* the mean.</li>
+                     </ul>
+                     <p><strong>The Formula:</strong></p>
+                     <p>$$Z = \frac{x - \bar{x}}{s}$$</p>
+                     <p>Where: $x$ = data point, $\bar{x}$ = sample mean, $s$ = sample standard deviation.</p>
+                 </div>
+
+                 <h4>Worked Example: Calculating Z-Score</h4>
+                 <p>Suppose SAT scores are approximately normal with a mean ($\bar{x}$) of 1050 and a standard deviation ($s$) of 200.</p>
+                 <p>What is the Z-score for a student who scored $x = 1250$?</p>
+                 <p>$$Z = \frac{1250 - 1050}{200} = \frac{200}{200} = 1$$</p>
+                 <p>This student scored exactly 1 standard deviation above the mean.</p>
+                 <p>What is the Z-score for a student who scored $x = 950$?</p>
+                 <p>$$Z = \frac{950 - 1050}{200} = \frac{-100}{200} = -0.5$$</p>
+                 <p>This student scored 0.5 standard deviations below the mean.</p>
+
+                 <h4>Interactive Z-Score Calculator</h4>
+                 <p>Enter a data point, the mean, and the standard deviation.</p>
+                 <label for="zDataPoint">Data Point (x):</label>
+                 <input type="number" id="zDataPoint" placeholder="e.g., 1250">
+                 <br>
+                 <label for="zMean">Mean ($\bar{x}$):</label>
+                 <input type="number" id="zMean" placeholder="e.g., 1050">
+                 <br>
+                 <label for="zStdDev">Standard Dev (s):</label>
+                 <input type="number" id="zStdDev" placeholder="e.g., 200">
+                 <br>
+                 <button onclick="calculateZScore()">Calculate Z-Score</button>
+                 <div id="zScoreResult" class="result-box"></div> <p id="zScoreError" class="error"></p>
+            </article>
+
+            <article>
+                <h3>Module 3 Quiz</h3>
+                <div id="quiz3" class="quiz-section"> <p><strong>Question 1:</strong> According to the Empirical Rule, approximately what percentage of data falls within 2 standard deviations of the mean in a normal distribution?</p>
+                    <label><input type="radio" name="q5" value="a"> 34%</label><br>
+                    <label><input type="radio" name="q5" value="b"> 68%</label><br>
+                    <label><input type="radio" name="q5" value="c"> 95%</label><br>
+                    <label><input type="radio" name="q5" value="d"> 99.7%</label><br>
+
+                    <p><strong>Question 2:</strong> Your score on a test has a Z-score of -1.5. What does this mean?</p>
+                    <label><input type="radio" name="q6" value="a"> You scored 1.5 points below the mean.</label><br>
+                    <label><input type="radio" name="q6" value="b"> You scored 1.5 standard deviations below the mean.</label><br>
+                    <label><input type="radio" name="q6" value="c"> You scored in the bottom 1.5% of the class.</label><br>
+                    <label><input type="radio" name="q6" value="d"> You scored 1.5 standard deviations above the mean.</label><br>
+
+                    <button onclick="checkQuiz('quiz3', ['c', 'b'])">Check Answers</button>
+                    <div id="quiz3Result" class="quiz-feedback"></div> </div>
+            </article>
+
+        </section>
+
+        <section id="module4" class="module" style="display: none;">
+             <h2>Module 4: Collecting Data - Samples, Surveys, and Studies</h2>
+
+            <article>
+                <h3>Populations vs. Samples</h3>
+                <p>In statistics, we often want to learn about a large group, called the **population**. However, it's usually impractical or impossible to collect data from everyone in the population.</p>
+                <ul>
+                    <li><strong>Population:</strong> The entire group of individuals or items we are interested in studying (e.g., all high school students in California, all widgets produced by a factory).</li>
+                    <li><strong>Sample:</strong> A smaller, manageable subset of the population that we actually collect data from (e.g., 500 randomly selected CA high school students, 100 widgets chosen from the assembly line).</li>
+                </ul>
+                <p>We use data from the sample to make **inferences** (educated guesses or conclusions) about the entire population.</p>
+                <p><strong>Parameter vs. Statistic:</strong></p>
+                 <ul>
+                     <li>A **parameter** is a numerical value describing a characteristic of the **population** (e.g., the true average height of *all* adult males). Often unknown. Symbolized by Greek letters (like $\mu$ for population mean, $\sigma$ for population standard deviation).</li>
+                     <li>A **statistic** is a numerical value describing a characteristic of the **sample** (e.g., the average height of the 100 males *in our sample*). Calculated from sample data. Symbolized by Latin letters (like $\bar{x}$ for sample mean, $s$ for sample standard deviation).</li>
+                 </ul>
+                 <p>We use the statistic (from the sample) to estimate the parameter (of the population).</p>
+            </article>
+
+            <article>
+                 <h3>Sampling Methods: Getting a Good Sample</h3>
+                 <p>How we choose the sample is crucial! We want the sample to be **representative** of the population. A biased sample can lead to incorrect conclusions.</p>
+                 <p><strong>Good Sampling Methods (often rely on randomness):</strong></p>
+                 <ul>
+                     <li><strong>Simple Random Sample (SRS):</strong> Every individual in the population has an equal chance of being selected, and every possible sample of the desired size has an equal chance of being chosen (like drawing names out of a hat).</li>
+                     <li><strong>Stratified Random Sample:</strong> Divide the population into groups (strata) based on some characteristic (e.g., grade level, gender). Then take an SRS from *each* group. Ensures representation from all strata.</li>
+                     <li><strong>Cluster Sample:</strong> Divide the population into groups (clusters), often geographically (e.g., schools, neighborhoods). Randomly select *entire clusters* and sample everyone within those chosen clusters. More practical but potentially less precise if clusters differ significantly.</li>
+                     <li><strong>Systematic Sample:</strong> Choose a starting point randomly, then select individuals at regular intervals (e.g., every 10th person on a list).</li>
+                 </ul>
+                 <p><strong>Poor Sampling Methods (often lead to bias):</strong></p>
+                 <ul>
+                     <li><strong>Convenience Sample:</strong> Choosing individuals who are easiest to reach (e.g., surveying your friends, people walking by in the mall). Often unrepresentative.</li>
+                     <li><strong>Voluntary Response Sample:</strong> Individuals choose themselves to participate in response to a general appeal (e.g., online polls, call-in surveys). Often biased because people with strong opinions (especially negative ones) are more likely to respond.</li>
+                 </ul>
+                 <p><strong>Bias:</strong> A sampling method is biased if it systematically favors certain outcomes or underrepresents parts of the population.</p>
+            </article>
+
+            <article>
+                 <h3>Types of Studies</h3>
+                 <p>Once you have a sample (or are observing a population), how do you collect the data?</p>
+                 <ul>
+                     <li><strong>Observational Study:</strong> Researchers observe and measure characteristics of interest but do *not* attempt to influence the responses or impose any treatment. They simply record what they see or ask questions via surveys. (Example: Surveying students about their study habits and grades).
+                         <ul><li>You can find associations between variables, but you **cannot** establish cause-and-effect from observational studies alone (due to potential confounding variables).</li></ul>
+                    </li>
+                     <li><strong>Experiment:</strong> Researchers deliberately impose some **treatment** on individuals (the experimental units or subjects) to measure their responses. The goal is often to see if the treatment *causes* a change in the response. (Example: Giving one group of students a new study technique and another group the old technique, then comparing test scores).
+                        <ul><li>Well-designed experiments **can** provide evidence for cause-and-effect. Key elements include:
+                            <li><strong>Control Group:</strong> A group that does not receive the active treatment (may receive a placebo or standard treatment).</li>
+                            <li><strong>Random Assignment:</strong> Using chance to assign subjects to treatment groups helps balance out lurking variables.</li>
+                            <li><strong>Replication:</strong> Using enough subjects in each group.</li>
+                        </ul>
+                     </li>
+                     <li><strong>Survey:</strong> A common type of observational study that gathers data by asking people questions. Watch out for wording bias, non-response bias, etc.</li>
+                 </ul>
+            </article>
+
+            <article>
+                <h3>Module 4 Quiz</h3>
+                <div id="quiz4" class="quiz-section"> <p><strong>Question 1:</strong> A researcher wants to know the average GPA of all students at a large university. They survey 100 students who are studying in the library on a Tuesday morning. What type of sampling is this?</p>
+                    <label><input type="radio" name="q7" value="a"> Simple Random Sample (SRS)</label><br>
+                    <label><input type="radio" name="q7" value="b"> Stratified Random Sample</label><br>
+                    <label><input type="radio" name="q7" value="c"> Convenience Sample</label><br>
+                    <label><input type="radio" name="q7" value="d"> Cluster Sample</label><br>
+
+                    <p><strong>Question 2:</strong> Which type of study is generally required to establish a cause-and-effect relationship between two variables?</p>
+                    <label><input type="radio" name="q8" value="a"> Survey</label><br>
+                    <label><input type="radio" name="q8" value="b"> Observational Study</label><br>
+                    <label><input type="radio" name="q8" value="c"> Experiment</label><br>
+                    <label><input type="radio" name="q8" value="d"> Census (collecting data from everyone)</label><br>
+
+                     <p><strong>Question 3:</strong> A parameter describes a characteristic of the ______, while a statistic describes a characteristic of the ______. </p>
+                    <label><input type="radio" name="q9" value="a"> Sample, Population</label><br>
+                    <label><input type="radio" name="q9" value="b"> Population, Sample</label><br>
+                    <label><input type="radio" name="q9" value="c"> Mean, Standard Deviation</label><br>
+                    <label><input type="radio" name="q9" value="d"> Experiment, Survey</label><br>
+
+                    <button onclick="checkQuiz('quiz4', ['c', 'c', 'b'])">Check Answers</button>
+                    <div id="quiz4Result" class="quiz-feedback"></div> </div>
+            </article>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>IM3 Statistics Prep | Good luck with your final!</p>
+        <p><small>Remember to review your class notes and textbook too.</small></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
