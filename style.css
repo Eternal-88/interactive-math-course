@@ -1,210 +1,319 @@
+/* Basic Reset & Font Setup */
 body {
-    font-family: sans-serif;
-    line-height: 1.6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Cleaner font stack */
+    line-height: 1.7; /* Increased line height for readability */
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: #f8f9fa; /* Slightly lighter background */
+    color: #343a40; /* Darker gray for better contrast */
+    font-size: 16px; /* Base font size */
 }
 
+/* Variables for easier theming */
+:root {
+    --primary-color: #005a9c; /* Dark Blue */
+    --secondary-color: #e17000; /* Orange */
+    --light-gray: #f1f3f5;
+    --medium-gray: #ced4da;
+    --dark-gray: #495057;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --info-bg-color: #e7f3ff; /* Light blue for results */
+    --info-border-color: #005a9c;
+}
+
+/* Header Styling */
 header {
-    background-color: #005a9c; /* Example school color */
+    background-color: var(--primary-color);
     color: #fff;
-    padding: 1rem 0;
+    padding: 1.5rem 1rem; /* More padding */
     text-align: center;
+    border-bottom: 5px solid var(--secondary-color);
 }
 
 header h1 {
     margin: 0;
+    font-size: 2em; /* Larger title */
     padding-bottom: 0.5rem;
 }
 
+/* Navigation Buttons */
 nav button {
-    background-color: #e17000; /* Contrasting color */
+    background-color: var(--secondary-color);
     color: white;
     border: none;
     padding: 0.8rem 1.5rem;
-    margin: 0 0.5rem;
+    margin: 0.5rem 0.5rem; /* Added vertical margin */
     cursor: pointer;
     font-size: 1rem;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
 nav button:hover {
-    background-color: #c46100;
+    background-color: #c46100; /* Darker orange on hover */
+    transform: translateY(-2px);
 }
 
+nav button:active {
+    transform: translateY(0);
+}
+
+/* Main Content Area */
 main {
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 1rem;
+    max-width: 950px; /* Slightly wider */
+    margin: 2.5rem auto; /* More margin */
+    padding: 1.5rem 2rem; /* More padding inside */
     background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); /* Softer shadow */
     border-radius: 8px;
 }
 
+/* Module Styling */
 .module {
-    padding: 1.5rem;
-    border-bottom: 1px solid #ddd;
+    padding: 2rem 0; /* Vertical padding */
+    border-bottom: 1px solid var(--light-gray);
     margin-bottom: 1.5rem;
 }
 
 .module:last-child {
     border-bottom: none;
+    margin-bottom: 0;
 }
 
+/* Headings */
 h2 {
-    color: #005a9c;
-    border-bottom: 2px solid #e17000;
-    padding-bottom: 0.3rem;
+    color: var(--primary-color);
+    border-bottom: 3px solid var(--secondary-color);
+    padding-bottom: 0.5rem;
     margin-top: 0;
+    margin-bottom: 1.5rem; /* Space below H2 */
+    font-size: 1.8em;
 }
 
 h3 {
-    color: #333;
-    margin-top: 1.5rem;
+    color: var(--dark-gray);
+    margin-top: 2rem; /* More space above H3 */
+    margin-bottom: 1rem;
+    font-size: 1.4em;
 }
 
 h4 {
      color: #555;
-     margin-top: 1rem;
+     margin-top: 1.5rem;
+     margin-bottom: 0.8rem;
+     font-size: 1.15em;
+     font-weight: 600; /* Bolder H4 */
 }
 
+/* Article Styling */
 article {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem; /* More space between articles */
 }
 
 ul, ol {
     margin-left: 1.5rem;
+    padding-left: 1rem; /* Ensure padding */
 }
 
 li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.7rem; /* More space between list items */
 }
 
-/* Interactive Elements */
+p, li {
+    color: #343a40; /* Ensure consistent text color */
+}
+
+/* Formula Explanation Block */
+.formula-explanation {
+    background-color: var(--light-gray);
+    border-left: 5px solid var(--secondary-color);
+    padding: 15px 20px;
+    margin: 1.5rem 0;
+    border-radius: 4px;
+    font-size: 0.95em;
+}
+.formula-explanation p {
+    margin-bottom: 0.5rem;
+}
+.formula-explanation strong {
+    color: var(--primary-color);
+}
+
+/* Interactive Elements Styling */
 input[type="text"],
 input[type="number"] {
-    padding: 8px;
-    margin: 5px 0 10px 5px;
-    border: 1px solid #ccc;
+    padding: 10px; /* Larger padding */
+    margin: 5px 0 15px 5px; /* More bottom margin */
+    border: 1px solid var(--medium-gray);
     border-radius: 4px;
-    width: calc(100% - 22px); /* Adjust for padding and border */
-    max-width: 300px;
+    width: calc(100% - 24px); /* Adjust width based on padding/border */
+    max-width: 350px; /* Slightly wider max */
+    font-size: 1em; /* Ensure readable font size */
 }
 
 label {
     font-weight: bold;
     display: inline-block;
-    min-width: 120px; /* Align labels */
+    min-width: 120px; /* Keep alignment */
+    margin-bottom: 5px; /* Space below label */
+    vertical-align: middle; /* Align with inputs */
 }
 
-
 button {
-    background-color: #007bff;
+    background-color: var(--primary-color); /* Use primary color */
     color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 12px 20px; /* Larger buttons */
     border-radius: 5px;
     cursor: pointer;
     font-size: 1em;
-    margin-top: 5px;
-    transition: background-color 0.3s ease;
+    margin-top: 10px; /* More space above button */
+    transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #004175; /* Darker blue */
+    transform: translateY(-2px);
+}
+button:active {
+    transform: translateY(0);
 }
 
 /* Histogram Display */
 #histogramDisplay {
-    margin-top: 15px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    min-height: 150px; /* Ensure space even when empty */
-    display: flex; /* Use flexbox for bars */
-    align-items: flex-end; /* Align bars to the bottom */
-    justify-content: space-around; /* Space out bars */
-    background-color: #f9f9f9;
-    overflow-x: auto; /* Allow scrolling if too many bars */
+    margin-top: 20px;
+    border: 1px solid var(--medium-gray);
+    padding: 15px;
+    min-height: 200px; /* Taller */
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    background-color: #fff; /* White background for contrast */
+    overflow-x: auto;
 }
 
 .hist-bar {
-    background-color: #007bff;
-    width: 30px; /* Fixed width for simplicity */
-    margin: 0 2px;
+    background-color: var(--primary-color);
+    width: 40px; /* Wider bars */
+    margin: 0 3px;
     text-align: center;
     color: white;
-    position: relative; /* For label positioning */
-    min-height: 1px; /* Ensure bar is visible even with 0 height */
+    position: relative;
+    min-height: 1px;
+    transition: height 0.3s ease; /* Animate height change */
 }
 
 .hist-label {
     position: absolute;
-    bottom: -20px; /* Position below the bar */
+    bottom: -25px; /* Further down */
     left: 50%;
     transform: translateX(-50%);
     font-size: 0.8em;
-    color: #333;
+    color: var(--dark-gray);
     white-space: nowrap;
 }
 
 .hist-freq {
     position: absolute;
-    top: -20px; /* Position above the bar */
+    top: -20px;
     left: 50%;
     transform: translateX(-50%);
-     font-size: 0.8em;
-     color: #333;
+    font-size: 0.8em;
+    color: var(--dark-gray);
+    background-color: rgba(255, 255, 255, 0.7); /* Slight background for readability */
+    padding: 1px 3px;
+    border-radius: 3px;
 }
 
 
 /* Results and Errors */
-#centerResult, #sdResult, #quiz1Result, #quiz2Result {
-    margin-top: 10px;
-    font-weight: bold;
-    padding: 10px;
-    background-color: #e7f3ff;
-    border-left: 5px solid #005a9c;
+.result-box { /* Generic class for result areas */
+    margin-top: 15px;
+    font-weight: normal; /* Normal weight, use bold inside if needed */
+    padding: 15px;
+    background-color: var(--info-bg-color);
+    border-left: 5px solid var(--info-border-color);
+    border-radius: 4px;
+    line-height: 1.5; /* Better line spacing in results */
+}
+.result-box strong {
+    color: var(--primary-color);
 }
 
 .error {
-    color: #d9534f; /* Red for errors */
+    color: var(--danger-color); /* Red for errors */
     font-weight: bold;
-    margin-top: 5px;
+    margin-top: 10px;
+    font-size: 0.9em;
 }
 
 /* Quiz styling */
-#quiz1, #quiz2 {
-    background-color: #f9f9f9;
-    border: 1px solid #eee;
-    padding: 15px;
-    margin-top: 15px;
+.quiz-section { /* Wrapper for quiz */
+    background-color: var(--light-gray);
+    border: 1px solid var(--medium-gray);
+    padding: 20px;
+    margin-top: 25px;
     border-radius: 5px;
 }
 
-#quiz1 p, #quiz2 p {
-    margin-bottom: 10px;
+.quiz-section p strong { /* Question text */
+   display: block; /* Make question bold text appear on its own line */
+   margin-bottom: 10px;
+   color: var(--primary-color);
 }
 
-#quiz1 label, #quiz2 label {
+.quiz-section label {
     font-weight: normal;
-    display: block; /* Make labels take full width */
+    display: block;
     margin-left: 5px;
+    margin-bottom: 8px; /* Space between options */
     cursor: pointer;
+    padding: 5px; /* Add padding for easier clicking */
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+.quiz-section label:hover {
+    background-color: #e9ecef; /* Slight hover effect */
 }
 
-#quiz1 input[type="radio"], #quiz2 input[type="radio"] {
-   margin-right: 8px;
+.quiz-section input[type="radio"] {
+   margin-right: 10px;
+   vertical-align: middle; /* Align radio button with text */
 }
 
+.quiz-section button {
+    margin-top: 15px; /* Space above check button */
+}
 
+.quiz-feedback { /* Result area for quiz */
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+.quiz-feedback.correct {
+    background-color: #d4edda; /* Greenish for correct */
+    border-left: 5px solid var(--success-color);
+    color: #155724;
+}
+.quiz-feedback.incorrect {
+    background-color: #f8d7da; /* Reddish for incorrect */
+    border-left: 5px solid var(--danger-color);
+    color: #721c24;
+}
+.quiz-feedback.partial {
+     background-color: #fff3cd; /* Yellowish for partial/unanswered */
+     border-left: 5px solid #ffeeba;
+     color: #856404;
+}
+
+/* Footer Styling */
 footer {
     text-align: center;
-    margin-top: 2rem;
-    padding: 1rem;
-    background-color: #ddd;
-    color: #333;
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background-color: var(--dark-gray); /* Darker footer */
+    color: #f1f3f5; /* Light text */
     font-size: 0.9em;
 }
