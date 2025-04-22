@@ -1,191 +1,319 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Integrated Math III - Unit 4: Statistics Fundamentals</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-</head>
-<body>
+/* Basic Reset & Font Setup */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Cleaner font stack */
+    line-height: 1.7; /* Increased line height for readability */
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa; /* Slightly lighter background */
+    color: #343a40; /* Darker gray for better contrast */
+    font-size: 16px; /* Base font size */
+}
 
-    <header>
-        <h1>Integrated Math III - Unit 4: Statistics Fundamentals</h1>
-        <nav>
-            <button onclick="showModule('module1')">Module 1: Visualizing Data</button>
-            <button onclick="showModule('module2')">Module 2: Measuring Spread</button>
-        </nav>
-    </header>
+/* Variables for easier theming */
+:root {
+    --primary-color: #005a9c; /* Dark Blue */
+    --secondary-color: #e17000; /* Orange */
+    --light-gray: #f1f3f5;
+    --medium-gray: #ced4da;
+    --dark-gray: #495057;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --info-bg-color: #e7f3ff; /* Light blue for results */
+    --info-border-color: #005a9c;
+}
 
-    <main>
-        <section id="module1" class="module">
-            <h2>Module 1: Visualizing Data & Measures of Center</h2>
+/* Header Styling */
+header {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 1.5rem 1rem; /* More padding */
+    text-align: center;
+    border-bottom: 5px solid var(--secondary-color);
+}
 
-            <article>
-                <h3>Introduction: Why Visualize Data?</h3>
-                <p>Raw data, like a list of test scores or measurements, can be hard to interpret. Visualizations help us see patterns, trends, and the overall 'shape' of the data. Measures of center tell us about the 'typical' value in a dataset.</p>
-            </article>
+header h1 {
+    margin: 0;
+    font-size: 2em; /* Larger title */
+    padding-bottom: 0.5rem;
+}
 
-            <article>
-                <h3>Histograms</h3>
-                <p>A histogram is a graphical representation of the distribution of numerical data. It's similar to a bar chart, but for continuous data grouped into ranges (called 'bins' or 'intervals'). The height of each bar shows the frequency (how many data points fall into that bin).</p>
-                <p><strong>Key features of a histogram:</strong></p>
-                <ul>
-                    <li>Bars represent frequency or relative frequency.</li>
-                    <li>Bars are typically adjacent (no gaps, unless a bin has zero frequency).</li>
-                    <li>The horizontal axis represents the continuous variable, divided into bins.</li>
-                    <li>The vertical axis represents the frequency or relative frequency.</li>
-                </ul>
+/* Navigation Buttons */
+nav button {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    margin: 0.5rem 0.5rem; /* Added vertical margin */
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
 
-                <h4>Interactive Histogram Generator</h4>
-                <p>Enter a list of numbers separated by commas (e.g., 5, 12, 8, 5, 10, 15, 8, 10, 12, 10). Choose the number of bins.</p>
-                <label for="histData">Data:</label>
-                <input type="text" id="histData" placeholder="e.g., 75, 82, 91, 68, 82">
-                <br>
-                <label for="numBins">Number of Bins:</label>
-                <input type="number" id="numBins" value="5" min="1">
-                <br>
-                <button onclick="generateHistogram()">Generate Histogram</button>
-                <div id="histogramDisplay">
-                    </div>
-                 <p id="histogramError" class="error"></p>
-            </article>
+nav button:hover {
+    background-color: #c46100; /* Darker orange on hover */
+    transform: translateY(-2px);
+}
 
-            <article>
-                <h3>Measures of Center: Mean and Median</h3>
-                <p>Measures of center give us a single value that represents the 'middle' or 'typical' value of a dataset.</p>
-                <ul>
-                    <li><strong>Mean ($\bar{x}$):</strong> The average value. Calculated by summing all values and dividing by the number of values. Formula: $\bar{x} = \frac{\sum_{i=1}^{n} x_i}{n}$. The mean is sensitive to outliers (extreme values).</li>
-                    <li><strong>Median:</strong> The middle value when the data is sorted. If there's an even number of data points, the median is the average of the two middle values. The median is resistant (or robust) to outliers.</li>
-                </ul>
+nav button:active {
+    transform: translateY(0);
+}
 
-                <h4>Interactive Mean & Median Calculator</h4>
-                <p>Enter a list of numbers separated by commas:</p>
-                <label for="centerData">Data:</label>
-                <input type="text" id="centerData" placeholder="e.g., 10, 20, 15, 25, 10">
-                <br>
-                <button onclick="calculateCenter()">Calculate Mean & Median</button>
-                <p id="centerResult"></p>
-                <p id="centerError" class="error"></p>
-            </article>
+/* Main Content Area */
+main {
+    max-width: 950px; /* Slightly wider */
+    margin: 2.5rem auto; /* More margin */
+    padding: 1.5rem 2rem; /* More padding inside */
+    background-color: #fff;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    border-radius: 8px;
+}
 
-            <article>
-                <h3>Choosing Mean vs. Median</h3>
-                <p>Which measure of center is better? It depends on the data's distribution:</p>
-                <ul>
-                    <li>For roughly symmetrical distributions, the mean and median will be close, and the mean is often preferred.</li>
-                    <li>For skewed distributions (data stretched out to one side) or data with significant outliers, the median is often a better representation of the 'typical' value.</li>
-                </ul>
-            </article>
+/* Module Styling */
+.module {
+    padding: 2rem 0; /* Vertical padding */
+    border-bottom: 1px solid var(--light-gray);
+    margin-bottom: 1.5rem;
+}
 
-             <article>
-                <h3>Module 1 Quiz</h3>
-                <div id="quiz1">
-                    <p><strong>Question 1:</strong> A histogram is best used for displaying:</p>
-                    <label><input type="radio" name="q1" value="a"> Categorical data</label><br>
-                    <label><input type="radio" name="q1" value="b"> The distribution of numerical data</label><br>
-                    <label><input type="radio" name="q1" value="c"> Comparing two specific values</label><br>
+.module:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
 
-                    <p><strong>Question 2:</strong> Which measure of center is most affected by an extremely high score in a dataset?</p>
-                    <label><input type="radio" name="q2" value="a"> Mean</label><br>
-                    <label><input type="radio" name="q2" value="b"> Median</label><br>
-                    <label><input type="radio" name="q2" value="c"> Mode</label><br>
+/* Headings */
+h2 {
+    color: var(--primary-color);
+    border-bottom: 3px solid var(--secondary-color);
+    padding-bottom: 0.5rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem; /* Space below H2 */
+    font-size: 1.8em;
+}
 
-                    <button onclick="checkQuiz('quiz1', ['b', 'a'])">Check Answers</button>
-                    <p id="quiz1Result"></p>
-                </div>
-            </article>
-        </section>
+h3 {
+    color: var(--dark-gray);
+    margin-top: 2rem; /* More space above H3 */
+    margin-bottom: 1rem;
+    font-size: 1.4em;
+}
 
-        <section id="module2" class="module" style="display: none;">
-            <h2>Module 2: Measuring Spread - Standard Deviation</h2>
+h4 {
+     color: #555;
+     margin-top: 1.5rem;
+     margin-bottom: 0.8rem;
+     font-size: 1.15em;
+     font-weight: 600; /* Bolder H4 */
+}
 
-            <article>
-                <h3>Introduction: Why Measure Spread?</h3>
-                <p>Knowing the center of the data (mean or median) is useful, but it doesn't tell the whole story. Consider two classes with the same average test score (mean = 80). One class might have scores clustered tightly around 80 (e.g., 78, 80, 81, 81), while the other has scores spread out widely (e.g., 60, 70, 90, 100). Measures of spread tell us how variable or dispersed the data points are.</p>
-            </article>
+/* Article Styling */
+article {
+    margin-bottom: 2rem; /* More space between articles */
+}
 
-            <article>
-                <h3>Range and Interquartile Range (IQR)</h3>
-                <p>These are simpler measures of spread:</p>
-                <ul>
-                    <li><strong>Range:</strong> The difference between the maximum and minimum values (Max - Min). Very sensitive to outliers.</li>
-                    <li><strong>Interquartile Range (IQR):</strong> The range of the middle 50% of the data. Calculated as Q3 - Q1, where Q3 is the 75th percentile (median of the upper half) and Q1 is the 25th percentile (median of the lower half). The IQR is resistant to outliers.</li>
-                </ul>
-            </article>
+ul, ol {
+    margin-left: 1.5rem;
+    padding-left: 1rem; /* Ensure padding */
+}
 
-            <article>
-                <h3>Variance and Standard Deviation</h3>
-                <p>The most common and important measures of spread are variance and standard deviation. They measure the typical distance of data points from the mean.</p>
-                <ul>
-                    <li><strong>Deviation:</strong> The difference between a data point ($x_i$) and the mean ($\bar{x}$): $(x_i - \bar{x})$.</li>
-                    <li><strong>Variance ($s^2$ for a sample, $\sigma^2$ for a population):</strong> Roughly the average of the *squared* deviations. Squaring ensures deviations don't cancel out and emphasizes larger deviations.
-                        <br>Sample Variance Formula: $s^2 = \frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{n-1}$
-                        <br>(Note: We divide by $n-1$ for a sample to get an unbiased estimate of the population variance. If you have data for the *entire* population, you'd divide by $N$.)
-                    </li>
-                    <li><strong>Standard Deviation ($s$ for a sample, $\sigma$ for a population):</strong> The square root of the variance. It brings the measure of spread back into the original units of the data. It represents a 'typical' or 'standard' distance from the mean.
-                        <br>Sample Standard Deviation Formula: $s = \sqrt{s^2} = \sqrt{\frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{n-1}}$
-                    </li>
-                </ul>
-                <p>A larger standard deviation means the data points are, on average, farther from the mean (more spread out). A smaller standard deviation means they are clustered more closely around the mean.</p>
+li {
+    margin-bottom: 0.7rem; /* More space between list items */
+}
 
-                <h4>Interactive Standard Deviation Calculator</h4>
-                <p>Enter a list of numbers separated by commas. This calculator computes the *sample* standard deviation (dividing by n-1).</p>
-                 <label for="sdData">Data:</label>
-                <input type="text" id="sdData" placeholder="e.g., 2, 4, 6, 8, 10">
-                <br>
-                <button onclick="calculateSD()">Calculate Variance & Standard Deviation</button>
-                <p id="sdResult"></p>
-                <p id="sdError" class="error"></p>
+p, li {
+    color: #343a40; /* Ensure consistent text color */
+}
 
-                <h5>Step-by-Step Breakdown (Example):</h5>
-                <ol>
-                    <li>Calculate the mean ($\bar{x}$).</li>
-                    <li>Calculate each deviation ($x_i - \bar{x}$).</li>
-                    <li>Square each deviation ($(x_i - \bar{x})^2$).</li>
-                    <li>Sum the squared deviations ($\sum (x_i - \bar{x})^2$).</li>
-                    <li>Divide by $n-1$ to get the variance ($s^2$).</li>
-                    <li>Take the square root to get the standard deviation ($s$).</li>
-                </ol>
-            </article>
+/* Formula Explanation Block */
+.formula-explanation {
+    background-color: var(--light-gray);
+    border-left: 5px solid var(--secondary-color);
+    padding: 15px 20px;
+    margin: 1.5rem 0;
+    border-radius: 4px;
+    font-size: 0.95em;
+}
+.formula-explanation p {
+    margin-bottom: 0.5rem;
+}
+.formula-explanation strong {
+    color: var(--primary-color);
+}
 
-             <article>
-                <h3>Interpreting Standard Deviation</h3>
-                <p>Standard deviation helps us understand the distribution. For many datasets (especially those that are bell-shaped, like the Normal Distribution):</p>
-                <ul>
-                    <li>About 68% of the data falls within 1 standard deviation of the mean ($\bar{x} \pm s$).</li>
-                    <li>About 95% of the data falls within 2 standard deviations of the mean ($\bar{x} \pm 2s$).</li>
-                    <li>About 99.7% of the data falls within 3 standard deviations of the mean ($\bar{x} \pm 3s$).</li>
-                </ul>
-                <p>(This is known as the Empirical Rule, which applies best to approximately normal distributions.)</p>
-            </article>
+/* Interactive Elements Styling */
+input[type="text"],
+input[type="number"] {
+    padding: 10px; /* Larger padding */
+    margin: 5px 0 15px 5px; /* More bottom margin */
+    border: 1px solid var(--medium-gray);
+    border-radius: 4px;
+    width: calc(100% - 24px); /* Adjust width based on padding/border */
+    max-width: 350px; /* Slightly wider max */
+    font-size: 1em; /* Ensure readable font size */
+}
 
-             <article>
-                <h3>Module 2 Quiz</h3>
-                <div id="quiz2">
-                    <p><strong>Question 1:</strong> A dataset has a standard deviation of 0. This means:</p>
-                    <label><input type="radio" name="q3" value="a"> All data points are equal to the mean.</label><br>
-                    <label><input type="radio" name="q3" value="b"> The data is perfectly symmetrical.</label><br>
-                    <label><input type="radio" name="q3" value="c"> The mean is 0.</label><br>
+label {
+    font-weight: bold;
+    display: inline-block;
+    min-width: 120px; /* Keep alignment */
+    margin-bottom: 5px; /* Space below label */
+    vertical-align: middle; /* Align with inputs */
+}
 
-                    <p><strong>Question 2:</strong> Compared to the range, the standard deviation:</p>
-                    <label><input type="radio" name="q4" value="a"> Is always larger.</label><br>
-                    <label><input type="radio" name="q4" value="b"> Is less sensitive to extreme outliers.</label><br>
-                    <label><input type="radio" name="q4" value="c"> Only works for positive data.</label><br>
+button {
+    background-color: var(--primary-color); /* Use primary color */
+    color: white;
+    border: none;
+    padding: 12px 20px; /* Larger buttons */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 10px; /* More space above button */
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
 
-                    <button onclick="checkQuiz('quiz2', ['a', 'b'])">Check Answers</button>
-                    <p id="quiz2Result"></p>
-                </div>
-            </article>
+button:hover {
+    background-color: #004175; /* Darker blue */
+    transform: translateY(-2px);
+}
+button:active {
+    transform: translateY(0);
+}
 
-        </section>
-    </main>
+/* Histogram Display */
+#histogramDisplay {
+    margin-top: 20px;
+    border: 1px solid var(--medium-gray);
+    padding: 15px;
+    min-height: 200px; /* Taller */
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    background-color: #fff; /* White background for contrast */
+    overflow-x: auto;
+}
 
-    <footer>
-        <p>Interactive Math Course | Statistics Fundamentals</p>
-    </footer>
+.hist-bar {
+    background-color: var(--primary-color);
+    width: 40px; /* Wider bars */
+    margin: 0 3px;
+    text-align: center;
+    color: white;
+    position: relative;
+    min-height: 1px;
+    transition: height 0.3s ease; /* Animate height change */
+}
 
-    <script src="script.js"></script>
-</body>
-</html>
+.hist-label {
+    position: absolute;
+    bottom: -25px; /* Further down */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8em;
+    color: var(--dark-gray);
+    white-space: nowrap;
+}
+
+.hist-freq {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8em;
+    color: var(--dark-gray);
+    background-color: rgba(255, 255, 255, 0.7); /* Slight background for readability */
+    padding: 1px 3px;
+    border-radius: 3px;
+}
+
+
+/* Results and Errors */
+.result-box { /* Generic class for result areas */
+    margin-top: 15px;
+    font-weight: normal; /* Normal weight, use bold inside if needed */
+    padding: 15px;
+    background-color: var(--info-bg-color);
+    border-left: 5px solid var(--info-border-color);
+    border-radius: 4px;
+    line-height: 1.5; /* Better line spacing in results */
+}
+.result-box strong {
+    color: var(--primary-color);
+}
+
+.error {
+    color: var(--danger-color); /* Red for errors */
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+/* Quiz styling */
+.quiz-section { /* Wrapper for quiz */
+    background-color: var(--light-gray);
+    border: 1px solid var(--medium-gray);
+    padding: 20px;
+    margin-top: 25px;
+    border-radius: 5px;
+}
+
+.quiz-section p strong { /* Question text */
+   display: block; /* Make question bold text appear on its own line */
+   margin-bottom: 10px;
+   color: var(--primary-color);
+}
+
+.quiz-section label {
+    font-weight: normal;
+    display: block;
+    margin-left: 5px;
+    margin-bottom: 8px; /* Space between options */
+    cursor: pointer;
+    padding: 5px; /* Add padding for easier clicking */
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+.quiz-section label:hover {
+    background-color: #e9ecef; /* Slight hover effect */
+}
+
+.quiz-section input[type="radio"] {
+   margin-right: 10px;
+   vertical-align: middle; /* Align radio button with text */
+}
+
+.quiz-section button {
+    margin-top: 15px; /* Space above check button */
+}
+
+.quiz-feedback { /* Result area for quiz */
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+.quiz-feedback.correct {
+    background-color: #d4edda; /* Greenish for correct */
+    border-left: 5px solid var(--success-color);
+    color: #155724;
+}
+.quiz-feedback.incorrect {
+    background-color: #f8d7da; /* Reddish for incorrect */
+    border-left: 5px solid var(--danger-color);
+    color: #721c24;
+}
+.quiz-feedback.partial {
+     background-color: #fff3cd; /* Yellowish for partial/unanswered */
+     border-left: 5px solid #ffeeba;
+     color: #856404;
+}
+
+/* Footer Styling */
+footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background-color: var(--dark-gray); /* Darker footer */
+    color: #f1f3f5; /* Light text */
+    font-size: 0.9em;
+}
